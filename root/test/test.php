@@ -12,8 +12,11 @@ echo $content;
 <?php
 }
 
-$dateObj = AddTDLItem(1, "<div>bwa ha ha <script>alert('woo')</script></div>", "", "", "");
+$dateObj = new DateTime();
+echo $dateObj->format("Y-m-d H:i:s");
+//$dateObj = AddTDLItem(1, "<div>bwa ha ha <script>alert('woo')</script></div>", "", "", "");
 //$dateObj = AddTDLItem(1, "bwa ha ha", "", "", "");
+/*$dateObj = AddTDLItem(1, "bwa ha ha.... 'ha 'ha \"", " ", " ", " ");
 
 if ($dateObj == true)
 {
@@ -23,4 +26,7 @@ else
 {
    echoDiv("2px", "#803020", "is false"); 
 }
+ */
+
+AddTDLItem(1, "bwa ha ha.... 'ha 'ha \"", " ", " ", " ");
 ?>

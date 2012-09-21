@@ -73,11 +73,23 @@ function GetTDLs($TDLUserId)
 function AddTDLItem($TDLId, $TDLItemName, $TDLItemDateCreation,
     $TDLItemDateEffective, $TDLItemDateDue)
 {
+    global $db_mysqli;
+
     $TDLId = intval($TDLId);
     $TDLItemName = CleanWithHtmlPurifier($TDLItemName);
+    $TDLItemName = $db_mysqli->real_escape_string($TDLItemName);
     if (isDateTime($TDLItemDateCreation) && isDateTime($TDLItemDateEffective)
-            && isDateTime()) {
-        //TODO query
+            && isDateTime($TDLItemDueDate)) {
+        $query =
+            "INSERT INTO TodoList_Item (TodoList_Id, TodoList_Item_Name) " .
+            "VALUES ($TDLId, '$TDLItemName')";
+        $queryResult = $db_mysqli->query($query);
+        $insertId = $db_mysqli->insert_id;
+        $query =
+            "INSERT INTO TodoList_Item_Date " .
+            "(TodoList_Item_Id, TodoList_Item_Date_Creation, " . 
+            "TodoList_Item_Date_Effective, TodoList_Item_Date_Due) " . "";
+//TODO finish this query
         return true;
     } else {
         return false;

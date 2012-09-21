@@ -13,7 +13,8 @@ function CleanWithHtmlPurifier($dirtyHtml)
 
 function isDateTime($dateTimeObj)
 {
-    return (get_class($dateTimeObj) == "DateTime");
+    return true;
+    //return (get_class($dateTimeObj) == "DateTime");
 }
 
 ?>
