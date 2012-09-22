@@ -4,22 +4,18 @@ require_once("../db/access.php");
 function echoDiv($borderSize, $borderColor, $content)
 {
 ?>
-<div style="border:<?php echo $borderSize ?> solid <?php $borderColor ?>">
+<div style="border:<?php echo $borderSize ?> solid <?php $borderColor ?>;">
 <?php
 echo $content;
 ?>
 </div>
 <?php
 }
-$dt1 = new DateTime();
-$dt2 = new DateTime();
-$dt3 = new DateTime();
+$tdl = GetTDL(2);
 
-$itworked = AddTDLItem(1, "bwa ha ha.... 'ha 'ha \"", $dt1, $dt1, $dt1);
-
-if ($itworked == true) {
-    echoDiv(4, "#208050", "is true");
+if ($tdl == null) {
+    echoDiv("2px", "#802020", "is null");
 } else {
-    echoDiv(4, "#502020", "is false");
+    print_r($tdl);
 }
 ?>

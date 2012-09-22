@@ -50,6 +50,26 @@ function GetTDLItems($TDLId)
     return $itemsList;
 }
 
+function GetTDL($TDLId)
+{
+    global $db_mysqli;
+
+    $TDLId = intval($TDLId);
+    $query =
+        "SELECT * FROM TodoList " .
+        "WHERE TodoList_Id=$TDLId";
+    $queryResult = $db_mysqli->query($query);
+
+    if ($queryResult->num_rows > 0)
+    {
+        return $queryResult->fetch_assoc();
+    }
+    else
+    {
+        return null;
+    }
+}
+
 function GetTDLs($TDLUserId)
 {
     global $db_mysqli;
@@ -108,5 +128,4 @@ function AddTDLItem($TDLId, $TDLItemName, $TDLItemDateCreation,
         return false;
     }
 }
-
 ?>
