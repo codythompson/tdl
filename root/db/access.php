@@ -70,6 +70,7 @@ function GetTDLs($TDLUserId)
     return $listsList;
 }
 
+//TODO should split this into two functions.
 function AddTDLItem($TDLId, $TDLItemName, $TDLItemDateCreation,
     $TDLItemDateEffective, $TDLItemDateDue)
 {
@@ -79,17 +80,29 @@ function AddTDLItem($TDLId, $TDLItemName, $TDLItemDateCreation,
     $TDLItemName = CleanWithHtmlPurifier($TDLItemName);
     $TDLItemName = $db_mysqli->real_escape_string($TDLItemName);
     if (isDateTime($TDLItemDateCreation) && isDateTime($TDLItemDateEffective)
-            && isDateTime($TDLItemDueDate)) {
+            && isDateTime($TDLItemDateDue)) {
         $query =
             "INSERT INTO TodoList_Item (TodoList_Id, TodoList_Item_Name) " .
             "VALUES ($TDLId, '$TDLItemName')";
         $queryResult = $db_mysqli->query($query);
+        if ($queryResult == false) {
+            return false;
+        }
         $insertId = $db_mysqli->insert_id;
+
+        $creationDateString = $TDLItemDateCreation->format("Y-m-d H:i:s");
+        $effectiveDateString = $TDLItemDateEffective->format("Y-m-d H:i:s");
+        $dueDateString = $TDLItemDateDue->format("Y-m-d H:i:s");
         $query =
             "INSERT INTO TodoList_Item_Date " .
             "(TodoList_Item_Id, TodoList_Item_Date_Creation, " . 
-            "TodoList_Item_Date_Effective, TodoList_Item_Date_Due) " . "";
-//TODO finish this query
+            "TodoList_Item_Date_Effective, TodoList_Item_Date_Due) " .
+            "VALUES ($insertId, '$creationDateString', '$effectiveDateString'" .
+            ", '$dueDateString')";
+        $queryResult = $db_mysqli->query($query);
+        if ($queryResult == false) {
+            return false;
+        }
         return true;
     } else {
         return false;

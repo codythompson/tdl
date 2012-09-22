@@ -11,22 +11,15 @@ echo $content;
 </div>
 <?php
 }
+$dt1 = new DateTime();
+$dt2 = new DateTime();
+$dt3 = new DateTime();
 
-$dateObj = new DateTime();
-echo $dateObj->format("Y-m-d H:i:s");
-//$dateObj = AddTDLItem(1, "<div>bwa ha ha <script>alert('woo')</script></div>", "", "", "");
-//$dateObj = AddTDLItem(1, "bwa ha ha", "", "", "");
-/*$dateObj = AddTDLItem(1, "bwa ha ha.... 'ha 'ha \"", " ", " ", " ");
+$itworked = AddTDLItem(1, "bwa ha ha.... 'ha 'ha \"", $dt1, $dt1, $dt1);
 
-if ($dateObj == true)
-{
-   echoDiv("2px", "#803020", "is true"); 
+if ($itworked == true) {
+    echoDiv(4, "#208050", "is true");
+} else {
+    echoDiv(4, "#502020", "is false");
 }
-else
-{
-   echoDiv("2px", "#803020", "is false"); 
-}
- */
-
-AddTDLItem(1, "bwa ha ha.... 'ha 'ha \"", " ", " ", " ");
 ?>
