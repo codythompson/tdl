@@ -5,41 +5,50 @@ require_once("control.php");
 class UserListsControl extends Control
 {
     public $userId;
+
+    public $linkPath;
     
     public $baseCSSId;
     public $baseCSSClass;
 
     private $containerDiv;
 
-    public function __construct($userId, $baseCSSId = "todoLists",
+    public function __construct($userId, $linkPath, $baseCSSId = "todoLists",
         $baseCSSClass = "todoLists", $headElements = array())
     {
         $this->userId = $userId;
+        $this->linkPath = $linkPath;
         $this->baseCSSId = $baseCSSId;
         $this->baseCSSClass = $baseCSSClass;
+        $this->containerDiv = new BasicHTMLElement("div", $baseCSSId,
+            $baseCSSClass);
         parent::__construct($headElements);
     }
 
     public function WriteOpenTag()
     {
-        $containerDiv = new BasicHTMLElement("div", $this->baseCSSId,
-            $this->baseCSSClass);
-        $containerDiv->WriteOpenTag();
+        $this->containerDiv->WriteOpenTag();
+    }
 
+    public function WriteContent()
+    {
         $listDiv = new BasicHTMLElement("div");
+        $listLink = new LinkElement($this->linkPath);
 
         $tdls = GetTDLs($this->userId);
+
         foreach($tdls as $tdl)
         {
             $listDiv->CSSId = $this->baseCSSId . "_" . $tdl["TodoList_Id"];
             $listDiv->CSSClass = $this->baseCSSClass . "_tdlContainer";
-            $listDiv->openText = $tdl["TodoList_Name"];
+
+            $listLink->queryString = "?todolist_id=" . $tdl["TodoList_Id"];
+            $listLink->text = $tdl["TodoList_Name"];
 
             $listDiv->WriteOpenTag();
+            $listLink->WriteElement();
             $listDiv->WriteCloseTag();
         }
-
-        $this->containerDiv = $containerDiv;
     }
 
     public function WriteCloseTag()

@@ -17,46 +17,96 @@ abstract class Control
     }
 
     abstract public function WriteOpenTag();
+    abstract public function WriteContent();
     abstract public function WriteCloseTag();
+
+    public function WriteElement()
+    {
+        $this->WriteOpenTag();
+        $this->WriteContent();
+        $this->WriteCloseTag();
+    }
 }
 
 class BasicHTMLElement extends Control
 {
-    public $tagName;
-    public $openText;
+    public $text;
     public $closeText;
     public $CSSId;
     public $CSSClass;
 
     public function __construct($tagName, $CSSId = "", $CSSClass = "",
-        $openText = "", $closeText = "", $headElements = array())
+        $text = "", $headElements = array())
     {
         $this->tagName = $tagName;
-        $this->openText = $openText;
-        $this->closeText = $closeText;
         $this->CSSId = $CSSId;
         $this->CSSClass = $CSSClass;
+        $this->text = $text;
         parent::__construct($headElements);
+    }
+
+    public function GetCSSIdString()
+    {
+        if ($this->CSSId)
+        {
+            return "id=\"$this->CSSId\"";
+        } else {
+            return "";
+        }
+    }
+
+    public function GetCSSClassString()
+    {
+        if ($this->CSSClass)
+        {
+            return "class=\"$this->CSSClass\"";
+        } else {
+            return "";
+        }
     }
 
     public function WriteOpenTag()
     {
-        $idString = "";
-        if ($this->CSSId)
-        {
-            $idString = "id=\"$this->CSSId\"";
-        }
-        $classString = "";
-        if ($this->CSSClass)
-        {
-            $classString = "class=\"$this->CSSClass\"";
-        }
-        echo "<$this->tagName $idString $classString >\n$this->openText";
+        $idString = $this->GetCSSIdString();
+        $classString = $this->GetCSSClassString(); 
+        echo "<$this->tagName $idString $classString >";
+    }
+
+    public function WriteContent()
+    {
+        echo $this->text;
     }
 
     public function WriteCloseTag()
     {
-        echo "$this->closeText\n</$this->tagName>\n";
+        echo "\n</$this->tagName>";
+    }
+}
+
+class LinkElement extends BasicHTMLElement
+{
+    public $href;
+    public $queryString;
+
+    public function __construct($href, $queryString = "", $CSSId = "",
+        $CSSClass = "", $text = "", $headElements = array())
+    {
+        $this->href= $href;
+        parent::__construct("a", $CSSId, $CSSClass, $text, $headElements);
+    }
+
+    public function GetHREFString()
+    {
+        $href = $this->href . $this->queryString;
+        return "href=\"$href\"";
+    }
+
+    public function WriteOpenTag()
+    {
+        $hrefString = $this->GetHREFString();
+        $idString = $this->GetCSSIdString();
+        $classString = $this->GetCSSClassString();
+        echo "<$this->tagName $hrefString $idString $classString >";
     }
 }
 ?>

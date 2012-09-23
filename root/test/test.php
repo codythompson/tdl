@@ -3,9 +3,8 @@ require_once("../db/access.php");
 require_once("../front/control.php");
 require_once("../front/userlists.php");
 
-$lists = new UserListsControl(1);
+$lists = new UserListsControl(1, "test.php");
 
-$lists->WriteOpenTag();
-$lists->WriteCloseTag();
+$lists->WriteElement();
 
 ?>
