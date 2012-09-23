@@ -1,11 +1,11 @@
 <?php
 require_once("../db/access.php");
 require_once("../front/control.php");
+require_once("../front/userlists.php");
 
-$dc = new BasicHTMLElement("div", "a", "class_name", "open text", "close text");
+$lists = new UserListsControl(1);
 
-//HTML SECTION
-$dc->WriteOpenTag();
-echo "<div>some garbage in between</div>";
-$dc->WriteCloseTag();
+$lists->WriteOpenTag();
+$lists->WriteCloseTag();
+
 ?>
