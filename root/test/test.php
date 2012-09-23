@@ -11,11 +11,11 @@ echo $content;
 </div>
 <?php
 }
-$tdl = GetTDL(2);
+$tdl = AddTDL(1, "Test Todo List <div onload='alert()'></div>");
 
-if ($tdl == null) {
-    echoDiv("2px", "#802020", "is null");
+if ($tdl == false) {
+    echoDiv("2px", "#802020", "is false");
 } else {
-    print_r($tdl);
+    echoDiv("2px", "#802020", "is true");
 }
 ?>

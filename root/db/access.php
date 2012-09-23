@@ -128,4 +128,22 @@ function AddTDLItem($TDLId, $TDLItemName, $TDLItemDateCreation,
         return false;
     }
 }
+
+function AddTDL($TDLUserId, $TDLName)
+{
+    global $db_mysqli;
+
+    $TDLUserId = intval($TDLUserId);
+    $TDLName = CleanWithHtmlPurifier($TDLName);
+    $TDLName = $db_mysqli->real_escape_string($TDLName);
+
+    $query =
+        "INSERT INTO TodoList (TodoList_User_Id, TodoList_Name) " .
+        "VALUES ($TDLUserId, '$TDLName')";
+    $queryResult = $db_mysqli->query($query);
+
+    echo $query;
+    
+    return $queryResult == true;
+}
 ?>
