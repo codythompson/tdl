@@ -14,7 +14,7 @@ class UserListsControl extends Control
     private $containerDiv;
 
     public function __construct($userId, $linkPath, $baseCSSId = "todoLists",
-        $baseCSSClass = "todoLists", $headElements = array())
+        $baseCSSClass = "todoLists")
     {
         $this->userId = $userId;
         $this->linkPath = $linkPath;
@@ -22,7 +22,6 @@ class UserListsControl extends Control
         $this->baseCSSClass = $baseCSSClass;
         $this->containerDiv = new BasicHTMLElement("div", $baseCSSId,
             $baseCSSClass);
-        parent::__construct($headElements);
     }
 
     public function WriteOpenTag()

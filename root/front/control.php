@@ -1,21 +1,6 @@
 <?php
 abstract class Control
 {
-    public $headElements = array();
-
-    public function __construct($headElements)
-    {
-        $this->headElements = $headElements;
-    }
-
-    public function WriteHeadElements()
-    {
-        foreach($this->headElements as $headEle)
-        {
-            echo $headEle;
-        }
-    }
-
     abstract public function WriteOpenTag();
     abstract public function WriteContent();
     abstract public function WriteCloseTag();
@@ -36,13 +21,12 @@ class BasicHTMLElement extends Control
     public $CSSClass;
 
     public function __construct($tagName, $CSSId = "", $CSSClass = "",
-        $text = "", $headElements = array())
+        $text = "")
     {
         $this->tagName = $tagName;
         $this->CSSId = $CSSId;
         $this->CSSClass = $CSSClass;
         $this->text = $text;
-        parent::__construct($headElements);
     }
 
     public function GetCSSIdString()
@@ -89,10 +73,10 @@ class LinkElement extends BasicHTMLElement
     public $queryString;
 
     public function __construct($href, $queryString = "", $CSSId = "",
-        $CSSClass = "", $text = "", $headElements = array())
+        $CSSClass = "", $text = "")
     {
         $this->href= $href;
-        parent::__construct("a", $CSSId, $CSSClass, $text, $headElements);
+        parent::__construct("a", $CSSId, $CSSClass, $text);
     }
 
     public function GetHREFString()
