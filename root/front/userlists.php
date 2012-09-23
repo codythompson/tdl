@@ -8,8 +8,8 @@ class UserListsControl extends Control
 
     public $linkPath;
     
-    public $baseCSSId;
-    public $baseCSSClass;
+    private $baseCSSId;
+    private $baseCSSClass;
 
     private $containerDiv;
 
