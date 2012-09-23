@@ -1,21 +1,10 @@
 <?php
 require_once("../db/access.php");
+require_once("../front/control.php");
 
-function echoDiv($borderSize, $borderColor, $content)
-{
-?>
-<div style="border:<?php echo $borderSize ?> solid <?php $borderColor ?>;">
-<?php
-echo $content;
-?>
-</div>
-<?php
-}
-$tdl = AddTDL(1, "Test Todo List <div onload='alert()'></div>");
+$dc = new DivControl("open text", "close text", "someId");
 
-if ($tdl == false) {
-    echoDiv("2px", "#802020", "is false");
-} else {
-    echoDiv("2px", "#802020", "is true");
-}
+//HTML SECTION
+$dc->WriteOpenTag();
+$dc->WriteCloseTag();
 ?>
