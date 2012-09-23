@@ -42,17 +42,17 @@ class DivControl extends Control
 ?>
 <div id="<?php echo $this->divId; ?>" class="<?php echo $this->divClassName; ?>">
 <?php
-        //if ($openText) 
-        //{
-            echo "  " . $openText;
-        //}
+        if ($this->openText) 
+        {
+            echo $this->openText;
+        }
     }
 
     public function WriteCloseTag()
     {
-        if ($closeText)
+        if ($this->closeText)
         {
-            echo "  " . $closeText;
+            echo $this->closeText;
         }
 ?>
 </div>
