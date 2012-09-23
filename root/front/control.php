@@ -20,43 +20,43 @@ abstract class Control
     abstract public function WriteCloseTag();
 }
 
-class DivControl extends Control
+class BasicHTMLElement extends Control
 {
+    public $tagName;
     public $openText;
     public $closeText;
-    public $divId;
-    public $divClassName;
+    public $CSSId;
+    public $CSSClass;
 
-    public function __construct($openText = "", $closeText = "", $divId = "",
-        $divClassName = "", $headElements = array())
+    public function __construct($tagName, $CSSId = "", $CSSClass = "",
+        $openText = "", $closeText = "", $headElements = array())
     {
+        $this->tagName = $tagName;
         $this->openText = $openText;
         $this->closeText = $closeText;
-        $this->divId = $divId;
-        $this->divClassName = $divClassName;
+        $this->CSSId = $CSSId;
+        $this->CSSClass = $CSSClass;
         parent::__construct($headElements);
     }
 
     public function WriteOpenTag()
     {
-?>
-<div id="<?php echo $this->divId; ?>" class="<?php echo $this->divClassName; ?>">
-<?php
-        if ($this->openText) 
+        $idString = "";
+        if ($this->CSSId)
         {
-            echo $this->openText;
+            $idString = "id=\"$this->CSSId\"";
         }
+        $classString = "";
+        if ($this->CSSClass)
+        {
+            $classString = "class=\"$this->CSSClass\"";
+        }
+        echo "<$this->tagName $idString $classString >\n$this->openText";
     }
 
     public function WriteCloseTag()
     {
-        if ($this->closeText)
-        {
-            echo $this->closeText;
-        }
-?>
-</div>
-<?php
+        echo "$this->closeText\n</$this->tagName>\n";
     }
 }
 ?>

@@ -4,10 +4,13 @@ require_once("../db/access.php");
 class UserListsControl extends Control
 {
     public $userId;
+    
+    public $baseCSSId;
 
-    public function __construct($userId, $headElements = array())
+    public function __construct($userId, $baseCSSId = "todoLists", $headElements = array())
     {
-        $this->$userId = $userId;
+        $this->userId = $userId;
+        $this->baseCSSId = $baseCSSId;
         parent::__construct($headElements);
     }
 
@@ -17,7 +20,10 @@ class UserListsControl extends Control
 ?>
 <div>
 <?php 
-        //TODO ...
+        foreach($tdls as $tdl)
+        {
+
+        }
 ?>
 </div>
 <?php
