@@ -27,17 +27,12 @@ function GetTDLItems($TDLId)
 
     $TDLId = intval($TDLId);
     $query =
-        "SELECT TodoList_Item.TodoList_Item_Id, TodoList_Item.TodoList_Id, " .
-        "TodoList_Item.TodoList_Item_Name, " .
-        "TodoList_Item_Date.TodoList_Item_Date_Creation, " .
-        "TodoList_Item_Date.TodoList_Item_Date_Effective, " .
-        "TodoList_Item_Date.TodoList_Item_Date_Due ".
-        "FROM TodoList_Item " .
-        "LEFT JOIN TodoList_Item_Date " .
-        "ON TodoList_Item.TodoList_Item_Id=" .
-        "TodoList_Item_Date.TodoList_Item_Id " .
-        "WHERE TodoList_Item.TodoList_Id=$TDLId " .
-        "ORDER BY TodoList_Item_Date.TodoList_Item_Date_Effective";
+        "SELECT * ".
+        "FROM TodoList_Item a " .
+        "LEFT JOIN TodoList_Item_Date b " .
+        "ON a.TodoList_Item_Id = b.TodoList_Item_Id " .
+        "WHERE a.TodoList_Id=$TDLId " .
+        "ORDER BY b.TodoList_Item_Date_Due";
     $queryResult = $db_mysqli->query($query);
 
     $itemsList = array();
